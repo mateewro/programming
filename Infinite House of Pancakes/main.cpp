@@ -3,6 +3,9 @@
 #include <vector>
 #include <list>
 #include <functional>
+#include <string>
+#include <climits>
+#include <algorithm>
 
 using namespace std;
 
@@ -13,7 +16,7 @@ public:
     int startEating()
     {
         auto lowerTime = INT_MAX;
-        auto maxTime = *(std::max_element(m_numberOfPancakes.begin(), m_numberOfPancakes.end()));
+        auto maxTime = *(max_element(m_numberOfPancakes.begin(), m_numberOfPancakes.end()));
         for (auto minValue = 1; minValue <= maxTime; ++minValue)
         {
             auto tmp = m_numberOfPancakes;
@@ -93,7 +96,7 @@ private:
 };
 
 
-auto getDataFromFile(const std::string& file)
+auto getDataFromFile(const string& file)
 {
     vector<PlateWithPancakes> PlatesWithPancakes;
     ifstream myfile(file);
