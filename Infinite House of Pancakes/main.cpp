@@ -51,7 +51,7 @@ private:
         removeEmptyPlates();
     }
     
-    bool tryToMakeSplit(const int minValue)
+    bool tryToSplit(const int minValue)
     {
         auto pancakesToSplit = max_element(m_numberOfPancakes.begin(),m_numberOfPancakes.end());
         if (pancakesToSplit != end(m_numberOfPancakes))
@@ -71,7 +71,7 @@ private:
     
     void makeRound(int minValue)
     {
-        if (tryToMakeSplit(minValue))
+        if (tryToSplit(minValue))
         {
             return;
         }
