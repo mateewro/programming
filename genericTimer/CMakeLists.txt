@@ -1,10 +1,11 @@
-cmake_minimum_required (VERSION 2.8)
+cmake_minimum_required (VERSION 3.0)
 PROJECT(genericTimer)
 
-set(GTEST_PATH "${PROJECT_SOURCE_DIR}/../externals/googletest/googletest")
-set(GTEST_INCLUDE_DIR ${GTEST_PATH} ${GTEST_PATH}/../googlemock/include)
+set(GTEST_PATH "${PROJECT_SOURCE_DIR}/externals/googletest")
+set(GTEST_INCLUDE_DIR ${GTEST_PATH} ${GTEST_PATH}/googlemock/include)
+#set(GMOCK_PATH "${PROJECT_SOURCE_DIR}/externals/googletest/googlemock")
 add_compile_options("--std=c++17")
-add_subdirectory(${GTEST_PATH} ./gtest)
+add_subdirectory(${GTEST_PATH})
 add_subdirectory(code)
 add_subdirectory(test)
 
