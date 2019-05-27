@@ -12,7 +12,7 @@ struct GenericTimerTestSuite : public testing::Test
 {
     void waitToRunTheTimer()
     {
-        std::this_thread::sleep_for(1ms);
+        std::this_thread::sleep_for(10ms);
     }
 
     void waitToChangeState(int& trigger)
@@ -61,8 +61,6 @@ TEST_F(GenericTimerTestSuite, TestSetsIntervalWithCallbackFunction)
 TEST_F(GenericTimerTestSuite, TestAbortsTimerWithIntervalRunning)
 {
     auto trigger = 0;
-    EXPECT_CALL(m_clock, sleep_for(_))
-                .Times(AtLeast(1));
     auto timePoint = system_clock::now();
     EXPECT_CALL(m_clock, now())
                 .WillOnce(Return(timePoint))
@@ -78,8 +76,6 @@ TEST_F(GenericTimerTestSuite, TestAbortsTimerWithIntervalRunning)
 TEST_F(GenericTimerTestSuite, TestAbortsTimerWithTimeoutRunning)
 {
     auto trigger = 0;
-    EXPECT_CALL(m_clock, sleep_for(_))
-                .Times(AtLeast(1));
     auto timePoint = system_clock::now();
     EXPECT_CALL(m_clock, now())
                 .WillOnce(Return(timePoint))
@@ -94,15 +90,9 @@ TEST_F(GenericTimerTestSuite, TestAbortsTimerWithTimeoutRunning)
 
 TEST_F(GenericTimerTestSuite, TestChecksCalculationOfTimeToFireTimer)
 {
-    auto trigger = 0;
-    EXPECT_CALL(m_clock, sleep_for(_))
-                .Times(AtLeast(1));
-    auto timePoint = system_clock::now();
-    EXPECT_CALL(m_clock, now())
-                .WillRepeatedly(Return(timePoint));
     Timer m_timer(m_clock);
     auto timeToFireTimer = 1000;
-    m_timer.setTimeoutInMs([&]{trigger = !trigger;}, timeToFireTimer);
+    m_timer.setTimeoutInMs([&]{}, timeToFireTimer);
     EXPECT_EQ(m_timer.getTimeToFireInMs(),timeToFireTimer);
     m_timer.abort();
 }
